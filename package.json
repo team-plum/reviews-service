@@ -1,0 +1,32 @@
+{
+  "name": "teamplumfec",
+  "version": "1.0.0",
+  "description": "Reviews component for Yelpalike.",
+  "main": "client/src/index.jsx",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.4",
+    "faker": "^4.1.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.0",
+    "parcel-bundler": "^1.12.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "sequelize": "^5.8.6",
+    "sqlite3": "^4.0.8",
+    "webpack-cli": "^3.3.2"
+  },
+  "scripts": {
+    "server": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/team-plum/reviews-service.git"
+  },
+  "author": "Beverly Hernandez (HRNYC22)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/team-plum/reviews-service/issues"
+  },
+  "homepage": "https://github.com/team-plum/reviews-service#readme"
+}
