@@ -1,7 +1,15 @@
 const sqlite = require('sqlite3');
-const db = new sqlite.Database('/path/to/database.sqlite');
-const sequelize = new Sequelize('database', '', '', {
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: './reviews.db',
-  ...
+  storage: './reviews.db'
 });
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connected to database!');
+  })
+  .catch(err => {
+    console.error('Unable to connect to database:', err);
+  });
