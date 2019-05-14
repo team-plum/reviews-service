@@ -1,23 +1,20 @@
-DROP DATABASE IF EXISTS 'yelpalike';
-CREATE DATABASE `yelpalike`;
-
-USE yelpalike;
-
 DROP TABLE IF EXISTS `restaurants`;
-		
+
 CREATE TABLE `restaurants` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER AUTO_INCREMENT,
   `name` VARCHAR(255),
   `reviews` INTEGER,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`reviews`) REFERENCES `reviews` (`id`)
 );
 
 DROP TABLE IF EXISTS `reviews`;
-		
+
 CREATE TABLE `reviews` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER AUTO_INCREMENT,
   `user` VARCHAR(75),
   `rating` INTEGER,
+  `text` VARCHAR(2000),
   `friends` INTEGER,
   `photos` INTEGER,
   `voters` INTEGER,
@@ -27,13 +24,14 @@ CREATE TABLE `reviews` (
   `firstCheck` TINYINT,
   `firstReview` TINYINT,
   `elite` TINYINT,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`photos`) REFERENCES `images` (`id`)
 );
 
 DROP TABLE IF EXISTS `images`;
 
 CREATE TABLE `images` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER AUTO_INCREMENT,
   `url` VARCHAR(500),
   `caption` INTEGER,
   `review_id` INTEGER,
@@ -41,6 +39,3 @@ CREATE TABLE `images` (
   `not helpful` INTEGER,
   PRIMARY KEY (`id`)
 );
-
-ALTER TABLE `restaurant` ADD FOREIGN KEY (reviews) REFERENCES `reviews` (`id`);
-ALTER TABLE `reviews` ADD FOREIGN KEY (photos) REFERENCES `images` (`id`);
