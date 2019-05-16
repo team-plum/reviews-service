@@ -22,13 +22,6 @@ const Restaurant = sequelize.define('restaurant', {
     primaryKey: true
   },
   name: Sequelize.STRING,
-  reviews: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'review',
-      key: 'id'
-    }
-  },
   owner: Sequelize.STRING
 });
 
@@ -39,7 +32,7 @@ const Review = sequelize.define('review', {
     unique: true,
     primaryKey: true
   },
-  restaurant: {
+  restaurant_id: {
     type: Sequelize.INTEGER,
     references: {
       model: 'restaurant',
@@ -53,20 +46,9 @@ const Review = sequelize.define('review', {
   hasOwnerResponse: Sequelize.BOOLEAN,
   ownerResponse: Sequelize.STRING,
   friends: Sequelize.INTEGER,
-  photos: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'photo',
-      key: 'id'
-    }
-  },
-  voters: Sequelize.INTEGER,
   funny: Sequelize.INTEGER,
   cool: Sequelize.INTEGER,
   useful: Sequelize.INTEGER,
-  firstCheck: Sequelize.BOOLEAN,
-  firstReview: Sequelize.BOOLEAN,
-  elite: Sequelize.BOOLEAN
 });
 
 const Photo = sequelize.define('photo', {
@@ -76,15 +58,15 @@ const Photo = sequelize.define('photo', {
     unique: true,
     autoIncrement: true
   },
-  url: Sequelize.STRING,
-  caption: Sequelize.STRING,
-  review: {
+  review_id: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'Review',
+      model: 'review',
       key: 'id'
     }
   },
+  url: Sequelize.STRING,
+  caption: Sequelize.STRING,
   helpful: Sequelize.INTEGER,
   notHelpful: Sequelize.INTEGER
 });

@@ -90,6 +90,7 @@ const seedDatabase = (data, callback) => {
         rating: Math.floor(Math.random() * 6),
         date: `${faker.date.past()}`,
         text: `${faker.lorem.paragraphs()}`,
+        hasOwnResponse: `${Math.floor(Math.random * 1)}`,
         ownerResponse: `${faker.lorem.paragraph()}`,
         reviews: `${faker.random.number(500)}`,
         friends: `${faker.random.number(600)}`,
