@@ -1,18 +1,10 @@
-const sqlite = require('sqlite3').verbose();
-const Sequelize = require('sequelize');
+const sqlite = require('sqlite3').verbose()
+// remove verbose() to get rid of query logging!
+const Sequelize = require('sequelize')
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: './reviews.db'
-});
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connected to database!');
-  })
-  .catch(err => {
-    console.error('Unable to connect to database:', err);
-  });
+  storage: 'database/reviews.db'
+})
 
 const Restaurant = sequelize.define('restaurant', {
   id: {
@@ -22,7 +14,8 @@ const Restaurant = sequelize.define('restaurant', {
     primaryKey: true
   },
   name: Sequelize.STRING,
-  owner: Sequelize.STRING
+  owner: Sequelize.STRING,
+  ownerAvatar: Sequelize.STRING
 });
 
 const Review = sequelize.define('review', {
@@ -35,16 +28,19 @@ const Review = sequelize.define('review', {
   restaurant_id: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'restaurant',
+      model: Restaurant,
       key: 'id'
     }
   },
   user: Sequelize.STRING,
+  avatar: Sequelize.STRING,
   rating: Sequelize.INTEGER,
+  location: Sequelize.STRING,
   date: Sequelize.DATE,
   text: Sequelize.STRING,
-  hasOwnerResponse: Sequelize.BOOLEAN,
+  hasOwnerResponse: Sequelize.TINYINT,
   ownerResponse: Sequelize.STRING,
+  reviews: Sequelize.INTEGER,
   friends: Sequelize.INTEGER,
   funny: Sequelize.INTEGER,
   cool: Sequelize.INTEGER,
@@ -61,7 +57,7 @@ const Photo = sequelize.define('photo', {
   review_id: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'review',
+      model: Review,
       key: 'id'
     }
   },
@@ -71,17 +67,99 @@ const Photo = sequelize.define('photo', {
   notHelpful: Sequelize.INTEGER
 });
 
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connected to database!')
+  })
+  .catch(err => {
+    console.error('Unable to connect to database: ', err)
+  })
+
+sequelize.sync()
+  .then((client) => {
+    console.log(`Database synced!`)
+  })
+  .catch(err => {
+    console.log(`ERROR syncing database: ${err}`)
+  })
+
 module.exports = {
-  createReview: () => {
-  },
-  deleteReview: () => {
+  Restaurant, Review, Photo,
+  create: (options, callback) => {
 
   },
-  updateReview: () => {
+  delete: (id, callback) => {
 
   },
-  getReview: () => {
+  update: (id, options) => {
 
   },
-  Restaurant, Review, Photo
+  getOne: (id, callback) => {
+    Review.findAll({
+      where: {
+        id: id
+      }
+    })
+    .then((data) => {
+      callback(null, data)
+    })
+    .catch((err) => {
+      callback(err)
+    })
+  },
+  get: (restaurantId, callback) => {
+    Review.findAll({
+      where: {
+        restaurant_id: restaurantId
+      }
+    })
+    .then((data) => {
+      callback(null, data)
+    })
+    .catch((err) => {
+      callback(err)
+    })
+  },
+  getAll: (callback) => {
+    Review.findAll({})
+      .then((data) => {
+        callback(null, data)
+      })
+      .catch((err) => {
+        callback(err)
+      })
+  },
+  getRestaurant: (id, callback) => {
+    if(!id) {
+      id = 1
+    }
+    Restaurant.findAll({
+      where: {
+        id: id
+      }
+    })
+    .then((data) => {
+      callback(null, data)
+    })
+    .catch((err) => {
+      callback(err)
+    })
+  },
+  getPhotos: (reviewID, callback) => {
+    if(!reviewID) {
+      reviewID = 1
+    }
+    Photo.findAll({
+      where: {
+        review_id: reviewID
+      }
+    })
+    .then(data => {
+      callback(null, data)
+    })
+    .catch(err => {
+      callback(err)
+    })
+  }
 }

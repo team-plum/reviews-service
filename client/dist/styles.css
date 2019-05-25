@@ -1,0 +1,136 @@
+p.review {
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+p.subtitle {
+  font-size: 21px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #333333
+}
+
+img.review {
+  height: 150px;
+  margin: 10px;
+}
+
+.hoverable {
+  visibility: hidden;
+}
+.hoverable:hover {
+  visibility: visible;
+}
+
+.stars {
+  width: 162px;
+  height: 30px;
+  background-image: url('./selector_stars.png');
+  background-size: 162px 180px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px 0px 12px;
+  background-repeat: no-repeat;
+  
+}
+
+.stars:hover {
+  width: 162px;
+  background-position: 0px -150px
+}
+
+
+.island {
+  width: 629px;
+  padding: 11px;
+  background: #f5f5f5;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px 0px 12px
+}
+
+a {
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #0073BB;
+  text-decoration: none;
+  padding: 3px 0px;
+  text-align: center
+}
+
+a:hover {
+  text-decoration: underline
+}
+
+img.user {
+  border-radius: 4px
+}
+
+.user {
+  width: 200px;
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #0073BB;
+}
+
+.user:hover {
+  text-decoration: underline
+}
+.user_location {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.user_stats {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  color: #666666;
+}
+
+a.hoverbox {
+  font-size: 12px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #0073BB;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 3px 0px
+}
+
+a.hoverbox:hover {
+  text-decoration: underline
+}
+
+input {
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  *width: 90%;
+  margin: 0 0 18px;
+  padding: 5px 9px;
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.28571em;
+  line-height: 1.29em;
+}
+
+select {
+  color: #666;
+}
+
+h2 {
+  font-size: 21px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #d32323
+}
+
+h3 {
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+}

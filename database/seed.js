@@ -1,5 +1,10 @@
-const db = require('./index.js');
-const faker = require('faker');
+const faker = require('faker')
+const db = require('./index.js')
+const Sequelize = require('sequelize')
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'database/reviews.db'
+})
 
 const images = [
   'alex-holyoake-139326-unsplash.jpg',
@@ -54,7 +59,7 @@ const images = [
   'wood-set-table-at-restaurant.jpg'
 ]
 
-const seedDatabase = (data, callback) => {
+const seedDatabase = (callback) => {
   let restaurants = [];
   let reviews = [];
   let photos = [];
@@ -65,7 +70,8 @@ const seedDatabase = (data, callback) => {
       id: i,
       name: `${faker.commerce.productAdjective()} ${faker.commerce.color()}`,
       review_id: Math.floor((Math.random() * 100) + 1),
-      owner: `${faker.name.firstName()} ${faker.name.lastName()}`
+      owner: `${faker.name.firstName()} ${faker.name.lastName()}`,
+      ownerAvatar: `${faker.image.avatar()}`
     })
       .catch(err => {
         console.log(err)
@@ -87,13 +93,16 @@ const seedDatabase = (data, callback) => {
         id: i,
         restaurant_id: Math.floor((Math.random() * 100) + 1),
         user: `${faker.name.firstName()} ${faker.name.lastName()}`,
+        avatar: `${faker.image.avatar()}`,
         rating: Math.floor(Math.random() * 6),
-        date: `${faker.date.past()}`,
-        text: `${faker.lorem.paragraphs()}`,
-        hasOwnResponse: `${Math.floor(Math.random * 1)}`,
-        ownerResponse: `${faker.lorem.paragraph()}`,
-        reviews: `${faker.random.number(500)}`,
-        friends: `${faker.random.number(600)}`,
+        location: faker.address.city(),
+        date: faker.date.past(),
+        text: faker.lorem.paragraphs(),
+        hasOwnerResponse: Math.round(Math.random()),
+        ownerResponse: faker.lorem.paragraph(),
+        reviews: Math.floor(Math.random() * 300),
+        friends: Math.floor(Math.random() * 300),
+        photos: Math.floor(Math.random() * 100),
         funny: Math.floor(Math.random() * 10),
         cool: Math.floor(Math.random() * 10),
         useful: Math.floor(Math.random() * 10)
@@ -113,12 +122,12 @@ const seedDatabase = (data, callback) => {
   })
 
   for (let i = 1; i < 3001; i++) {
-    let random = Math.floor((Math.random() * 50) + 1);
-    photos.push(db.Photo.create({
+    photos.push(
+      db.Photo.create({
       id: i,
-      review_id: Math.floor((Math.random() * 100) + 1),
+      review_id: Math.floor((Math.random() * 1000) + 1),
       url: `https://s3.amazonaws.com/reviews-service/${images[Math.floor(Math.random() * 50)]}`,
-      caption: `${faker.lorem.sentence(2)}`,
+      caption: faker.lorem.sentence(2),
       helpful: Math.floor(Math.random() * 5),
       notHelpful: Math.floor(Math.random() * 5)
     })
@@ -141,6 +150,7 @@ seedDatabase((err, data) => {
   if(err) {
     console.log(err)
   } else {
+    console.log(data);
     console.log('Data successfully added to database.');
   }
 })
