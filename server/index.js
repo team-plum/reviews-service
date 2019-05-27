@@ -39,6 +39,19 @@ app.get('/photos/:id', (req, res) => {
   })
 })
 
+app.get('/search/:id', (req, res) => {
+  let id = req.body.id || 1
+  // let term = req.body.term || 'dolorum'
+  db.search(id, req.body.term, (err, data) => {
+    if(err) {
+      console.log(`Error searching: ${err}`)
+      res.sendStatus(500)
+    } else {
+      res.send(data)
+    }
+  })
+})
+
 const PORT = process.env.PORT || 3007;
 
 app.listen(PORT, (err) => {

@@ -7,7 +7,7 @@ const User = (props) => {
     <table><tbody>
       <tr>
         <td>
-        <img src={props.user.avatar} with="60" height="60" />
+        <img src={props.user.avatar} className="user" />
         </td>
         <td>
         <p className="img user">{props.user.user}</p><br />

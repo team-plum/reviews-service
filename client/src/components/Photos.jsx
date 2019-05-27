@@ -13,8 +13,6 @@ class Photos extends React.Component {
       if(err) {
         console.log(err)
       } else {
-        console.log(data)
-        console.log('Photos retrieved!')
         this.setState({photos: data})
       }
     })
@@ -23,7 +21,7 @@ class Photos extends React.Component {
   render() {
     return(<div>
       {this.state.photos.map((photo) => {
-        return (<img className="review" src={photo.url} />)
+        return (<img key={photo.id} className="review" src={photo.url} />)
       })}
     </div>)
   }

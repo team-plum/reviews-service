@@ -2,26 +2,49 @@ import React from 'react'
 import User from './User.jsx'
 import HoverBox from './HoverBox.jsx'
 import Photos from './Photos.jsx'
+import OwnerResponse from './OwnerResponse.jsx'
+import VotingBlock from './VotingBlock.jsx'
 
-const Review = (props) => {
-  return (<div>
-    <table key={props.review.id}>
-      <tbody>
-    <tr>
-    <td>
-      <User user={props.review}/>
-    </td>
-    <td rowSpan="2">
-      <p className="review">{props.review.text}</p>
-      <Photos review={props.review} getPhotos={props.getPhotos} />
+class Review extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hovered: false
+    }
+    this.onHover = this.onHover.bind(this)
+    this.offHover = this.offHover.bind(this)
+  }
+
+  onHover() {
+    this.setState({hovered: true})
+  }
+  offHover() {
+    this.setState({hovered: false})
+  }
+
+  render() {
+    return (
+    <div onMouseEnter={this.onHover} onMouseLeave={this.offHover}>
+      <table key={this.props.review.id}>
+        <tbody>
+      <tr>
+      <td>
+        <User user={this.props.review}/>
       </td>
-    </tr>
-    <tr>
-      <td><HoverBox user={props.review} /></td>
+      <td rowSpan="2">
+        <p className="review">{this.props.review.text}</p>
+        <Photos review={this.props.review} getPhotos={this.props.getPhotos} />
+        <OwnerResponse review={this.props.review} restaurant={this.props.restaurant} />
+        <VotingBlock review={this.props.review} />
+        </td>
       </tr>
-      </tbody>
-    </table>
-  </div>)
+      <tr>
+        <td><HoverBox user={this.props.review} hovered={this.state.hovered} /></td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
+  )}
 }
 
 export default Review

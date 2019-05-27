@@ -12,14 +12,13 @@ class Reviews extends React.Component {
     super(props)
     this.state = {
       reviews: [],
-      restaurant: [],
-      hovered: false
+      restaurant: []
     }
     this.getReviews = this.getReviews.bind(this)
     this.getRestaurant = this.getRestaurant.bind(this)
     this.getUrlID = this.getUrlID.bind(this)
     this.getPhotos = this.getPhotos.bind(this)
-    this.hover = this.hover.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
   componentDidMount() {
@@ -29,15 +28,25 @@ class Reviews extends React.Component {
     this.getPhotos(id)
   }
 
-  hover() {
-    this.setState({hovered: !this.state.hovered})
-  }
-
   getUrlID() {
     let base = window.location.pathname
     let arr = base.split('/')
     let url = arr[1]
     return url
+  }
+
+  handleSearch(id, term) {
+    axios.get(`/search/${id}`, {
+      id: id,
+      term: term
+    })
+      .then(results => {
+        console.log(`${term} searched.`)
+        this.setState({reviews: results.data})
+      })
+      .catch(err => {
+        console.log(`Error occurred during search: ${err}`)
+      })
   }
 
   getRestaurant(id) {
@@ -78,7 +87,6 @@ class Reviews extends React.Component {
         this.setState({photos: results.data})
       })
       .catch(err => {
-        callback(err)
         console.log(`Error retrieving photos: ${err}`)
       })
   }
@@ -89,7 +97,7 @@ class Reviews extends React.Component {
         <h2>Recommended Reviews</h2><p className="subtitle"> for {this.state.restaurant.map((restaurant) => {
           return (restaurant.name)})}</p>
         <table width="100%"><tbody><tr>
-          <td><Search /></td><td><Sorter /></td>
+          <td><Search search={this.handleSearch} getUrl={this.getUrlID} /></td><td><Sorter /></td>
           </tr></tbody></table> 
         <table><tbody><tr>
           <td><img src="empty_profile@2x.png" width="148" height="68" /></td><td><Create info={this.state} /></td>
@@ -101,8 +109,8 @@ class Reviews extends React.Component {
               <td>
               </td>
               <td>
-            <Review review={review} getPhotos={this.getPhotos.bind(this)} 
-              getUrl={this.getUrlID.bind(this)} />
+            <Review review={review} restaurant={this.state.restaurant} getPhotos={this.getPhotos.bind(this)} 
+              getUrl={this.getUrlID.bind(this)}/>
               </td>
               </tr>
               </tbody></table>
