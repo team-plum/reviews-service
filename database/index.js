@@ -7,29 +7,17 @@ const sequelize = new Sequelize({
 })
 
 const Restaurant = sequelize.define('restaurant', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    unique: true,
-    primaryKey: true
-  },
   name: Sequelize.STRING,
   owner: Sequelize.STRING,
   ownerAvatar: Sequelize.STRING
 });
 
 const Review = sequelize.define('review', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    unique: true,
-    primaryKey: true
-  },
   restaurant_id: {
     type: Sequelize.INTEGER,
     references: {
       model: Restaurant,
-      key: 'id'
+      key: 'rowid'
     }
   },
   user: Sequelize.STRING,
@@ -48,17 +36,11 @@ const Review = sequelize.define('review', {
 });
 
 const Photo = sequelize.define('photo', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    unique: true,
-    autoIncrement: true
-  },
   review_id: {
     type: Sequelize.INTEGER,
     references: {
       model: Review,
-      key: 'id'
+      key: 'rowid'
     }
   },
   url: Sequelize.STRING,
@@ -87,13 +69,36 @@ sequelize.sync()
 module.exports = {
   Restaurant, Review, Photo,
   create: (options, callback) => {
-
+    Review.create({
+      restaurant_id: options.restaurant_id,
+      user: options.user,
+      rating: options.rating,
+      date: options.date,
+      text: options.text
+    })
+    .then(data => {
+      console.log('Review created.')
+      callback(null, data)
+    })
+    .catch(err => {
+      console.log(`Error creating review: ${err}`)
+      callback(err)
+    })
   },
   delete: (id, callback) => {
-
-  },
-  update: (id, options) => {
-
+    Review.destroy({
+      where: {
+        rowid: id
+      }
+    })
+    .then(data => {
+      console.log('Review deleted.')
+      callback(null, data)
+    })
+    .catch(err => {
+      console.log(`Error deleting review: ${err}`)
+      callback(err)
+    }) 
   },
   getOne: (id, callback) => {
     Review.findAll({

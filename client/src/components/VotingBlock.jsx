@@ -19,8 +19,8 @@ class VotingBlock extends React.Component {
   render() {
     return(
     <div>
-      <button className="vote">Useful {this.state.useful}</button>
-      <button className="vote">Funny {this.state.funny}</button>
+      <button className="vote">Useful {this.state.useful}</button>&nbsp;
+      <button className="vote">Funny {this.state.funny}</button>&nbsp;
       <button className="vote">Cool {this.state.cool}</button>
     </div>
     )

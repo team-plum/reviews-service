@@ -19,6 +19,11 @@ button.search {
   background-color: #D32323
 }
 
+.photo_modal {
+  width: 100%;    /* Occupy the 90% of the screen width */
+  max-width: 100%;
+}
+
 button.vote {
   background-color: #FFFFFF;
   display: inline-block;
@@ -50,28 +55,83 @@ img.review {
 }
 
 .unhovered {
+  transition: visibility .5s, opacity .5s;
   visibility: hidden;
+  opacity: 0
 }
 .hovered {
+  transition: visibility .5s, opacity .5s;
   visibility: visible;
+  opacity: 1
 }
 
-.stars {
-  width: 162px;
-  height: 30px;
-  background-image: url('./selector_stars.png');
-  background-size: 162px 180px;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0px 0px 12px;
-  background-repeat: no-repeat;
+  /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+  .rating-group {
+    display: inline-flex;
+  }
+  
+  /* make hover effect work properly in IE */
+  .rating__icon {
+    pointer-events: none;
+  }
+  
+  /* hide radio inputs */
+  .rating__input {
+    position: absolute !important;
+    left: -9999px !important;
+  }
+  
+  /* hide 'none' input from screenreaders */
+  .rating__input--none {
+    display: none
+  }
+
+  /* set icon padding and size */
+  .rating__label {
+    cursor: pointer;
+    padding: 0 0.1em;
+    font-size: 2rem;
+  }
+  
+  /* set default star color */
+  .rating__icon--star {
+    color: orange;
+  }
+
+  /* if any input is checked, make its following siblings grey */
+  .rating__input:checked ~ .rating__label .rating__icon--star {
+    color: #ddd;
+  }
+  
+  /* make all stars orange on rating group hover */
+  .rating-group:hover .rating__label .rating__icon--star {
+    color: orange;
+  }
+
+  /* make hovered input's following siblings grey on hover */
+  .rating__input:hover ~ .rating__label .rating__icon--star {
+    color: #ddd;
+  }
+
+body {
+  padding: 1rem;
+  text-align: center;
 }
 
-.stars:hover {
+
+/* .stars:hover {
   width: 162px;
   background-position: 0px -150px
 }
 
+.zerostars {
+  width: 164px;
+  height: 25px;
+  display: inline-block;
+  background-image: url('./stars.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+} */
 
 .island {
   width: 629px;
@@ -148,8 +208,37 @@ a.hoverbox {
   padding: 3px 0px
 }
 
+.hoverbox {
+  font-size: 18px;
+  color: #0073BB;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 a.hoverbox:hover {
   text-decoration: underline
+}
+
+.title_create {
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #0073BB;
+}
+.title_create:hover {
+  text-decoration: underline;
+}
+
+.create {
+  font-size: 18px;
+  line-height: 1.33333em;
+  line-height: 1.44em;
+  border: 1px solid #e6e6e6;
+  outline: none;
+  padding: 10px;
+  resize: none;
+  width: 100%;
+  min-height: 258px;
 }
 
 input {
@@ -157,7 +246,7 @@ input {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 100%;
+  width: 75%;
   *width: 90%;
   margin: 0 0 18px;
   padding: 5px 9px;

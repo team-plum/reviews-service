@@ -52,6 +52,19 @@ app.get('/search/:id', (req, res) => {
   })
 })
 
+app.delete('/delete/:id', (req, res) => {
+  let id = req.body.id || req.params.id
+
+  db.delete(id, (err, data) => {
+    if(err) {
+      console.log(`Error deleting: ${err}`)
+      res.sendStatus(500)
+    } else {
+      res.send(`${data} items deleted.`)
+    }
+  })
+})
+
 const PORT = process.env.PORT || 3007;
 
 app.listen(PORT, (err) => {

@@ -6,9 +6,11 @@ router.route('/all')
 
 router.route('/:id')
   .get(controller.getRestaurantReviews)
+  .post(controller.createReview)
 
 router.route('/single/:id')
   .get(controller.getOneReview)
+  .delete(controller.deleteReview)
 
 
 module.exports = router;

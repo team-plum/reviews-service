@@ -4,6 +4,7 @@ import HoverBox from './HoverBox.jsx'
 import Photos from './Photos.jsx'
 import OwnerResponse from './OwnerResponse.jsx'
 import VotingBlock from './VotingBlock.jsx'
+import Rating from './Rating.jsx'
 
 class Review extends React.Component {
   constructor(props) {
@@ -29,17 +30,18 @@ class Review extends React.Component {
         <tbody>
       <tr>
       <td>
-        <User user={this.props.review}/>
+        <User user={this.props.review} />
       </td>
       <td rowSpan="2">
+        <Rating review={this.props.review} /> <p className="review">{this.props.review.date && this.props.review.date.substr(0,10)}</p>
         <p className="review">{this.props.review.text}</p>
-        <Photos review={this.props.review} getPhotos={this.props.getPhotos} />
+        <Photos review={this.props.review} getPhotos={this.props.getPhotos} getUrl={this.props.getUrl}/>
         <OwnerResponse review={this.props.review} restaurant={this.props.restaurant} />
         <VotingBlock review={this.props.review} />
         </td>
       </tr>
       <tr>
-        <td><HoverBox user={this.props.review} hovered={this.state.hovered} /></td>
+        <td><HoverBox user={this.props.review} review={this.props.review} hovered={this.state.hovered} /></td>
         </tr>
         </tbody>
       </table>

@@ -1,29 +1,106 @@
 import React from 'react'
+import { FaShareSquare, FaMedal } from 'react-icons/fa'
+import { MdCode, MdChatBubble, MdPersonAdd } from 'react-icons/md'
+import Embed from './Embed.jsx'
 
 const HoverBox = (props) => {
   return (<div>
     {props.hovered
       ?     <div className="hovered">
-      <a href="#" className="a hoverbox">Share review</a>
-      <hr />
-      <a href="#" className="a hoverbox">Embed review</a>
-      <hr />
-      <a href="#" className="a hoverbox">Compliment</a>
-      <hr />
-      <a href="#" className="a hoverbox">Send message</a>
-      <hr />
-      <a href="#" className="a hoverbox">Follow {props.user.user}</a>
+        <table width="100%"><tbody>
+          <tr>
+            <td>
+              <FaShareSquare className="hoverbox" />
+            </td>
+            <td>
+              <a href="#" className="a hoverbox"> Share review</a>
+              <hr />
+            </td>
+          </tr>
+        <tr>
+            <td>
+              <MdCode className="hoverbox" />
+            </td>
+            <td>
+              <Embed review={props.review} />
+              <hr />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <FaMedal className="hoverbox" />
+            </td>
+            <td>
+              <a href="#" className="a hoverbox"> Compliment</a>
+              <hr />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <MdChatBubble className="hoverbox" />
+            </td>
+            <td>
+              <a href="#" className="a hoverbox"> Send message</a>
+              <hr />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <MdPersonAdd className="hoverbox" />
+            </td>
+            <td>
+              <a href="#" className="a hoverbox"> Follow {props.user.user}</a>
+            </td>
+          </tr>
+        </tbody></table>
     </div>
       : <div className="unhovered">
-      <a href="#" className="a hoverbox">Share review</a>
-      <hr />
-      <a href="#" className="a hoverbox">Embed review</a>
-      <hr />
-      <a href="#" className="a hoverbox">Compliment</a>
-      <hr />
-      <a href="#" className="a hoverbox">Send message</a>
-      <hr />
-      <a href="#" className="a hoverbox">Follow {props.user.user}</a>
+      <table width="100%"><tbody>
+          <tr>
+            <td>
+              <FaShareSquare className="hoverbox" />
+            </td>
+            <td>
+              <a href="#" className="a hoverbox"> Share review</a>
+              <hr />
+            </td>
+          </tr>
+        <tr>
+            <td>
+              <MdCode className="hoverbox" />
+            </td>
+            <td>
+              <a href="#" className="a hoverbox"> Embed review</a>
+              <hr />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <FaMedal className="hoverbox" />
+            </td>
+            <td>
+              <a href="#" className="a hoverbox"> Compliment</a>
+              <hr />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <MdChatBubble className="hoverbox" />
+            </td>
+            <td>
+              <a href="#" className="a hoverbox"> Send message</a>
+              <hr />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <MdPersonAdd className="hoverbox" />
+            </td>
+            <td>
+              <a href="#" className="a hoverbox"> Follow {props.user.user}</a>
+            </td>
+          </tr>
+        </tbody></table>
     </div>
     }
     </div>

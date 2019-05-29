@@ -2,10 +2,23 @@ const db = require('../database/index.js')
 
 module.exports = {
   createReview: (req, res) => {
-
-  },
-  updateReview: (req, res) => {
-    
+    console.log(req.params)
+    let options = {
+      restaurant_id: req.params.id,
+      user: req.body.user,
+      rating: req.body.rating,
+      date: req.body.date,
+      text: req.body.text
+    }
+    db.create(options, (err, data) => {
+      if(err) {
+        console.log(`ERROR creating review: ${err}`)
+        res.sendStatus(500)
+      } else {
+        console.log('Review created successfully.')
+        res.send(data)
+      }
+    })
   },
   getOneReview: (req, res) => {
     let id = req.params.id
@@ -44,6 +57,20 @@ module.exports = {
     })
   },
   deleteReview: (req, res) => {
-    
+    if(req.params.id === null) {
+      let id = null
+    } else {
+
+      id = req.params.id
+    }
+    db.delete(id, (err, data) => {
+      if(err) {
+        console.log(`Error deleted`)
+        res.sendStatus(500)
+      } else {
+        console.log('Review deleted.')
+        res.send(`${data} items deleted.`)
+      }
+    })
   }
 }

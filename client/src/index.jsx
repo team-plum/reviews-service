@@ -17,7 +17,6 @@ class Reviews extends React.Component {
     this.getReviews = this.getReviews.bind(this)
     this.getRestaurant = this.getRestaurant.bind(this)
     this.getUrlID = this.getUrlID.bind(this)
-    this.getPhotos = this.getPhotos.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
   }
 
@@ -25,7 +24,7 @@ class Reviews extends React.Component {
     let id = this.getUrlID()
     this.getReviews(id)
     this.getRestaurant(id)
-    this.getPhotos(id)
+    // this.getPhotos(id)
   }
 
   getUrlID() {
@@ -41,8 +40,12 @@ class Reviews extends React.Component {
       term: term
     })
       .then(results => {
-        console.log(`${term} searched.`)
-        this.setState({reviews: results.data})
+        if(results.data) {
+          console.log(`${term} searched.`)
+          this.setState({reviews: results.data})
+        } else {
+          console.log(`No reviews containing ${term}.`)
+        }
       })
       .catch(err => {
         console.log(`Error occurred during search: ${err}`)
@@ -77,48 +80,45 @@ class Reviews extends React.Component {
       })
   }
 
-  getPhotos(id, callback) {
-    if(!id) {
-      id = 1
-    }
-    axios.get(`/photos/${id}`)
-      .then(results => {
-        callback(null, results.data)
-        this.setState({photos: results.data})
-      })
-      .catch(err => {
-        console.log(`Error retrieving photos: ${err}`)
-      })
-  }
-
   render() {
     return (
       <div>
-        <h2>Recommended Reviews</h2><p className="subtitle"> for {this.state.restaurant.map((restaurant) => {
+        <h2>Recommended Reviews</h2>
+        <p className="subtitle"> for {this.state.restaurant.map((restaurant) => {
           return (restaurant.name)})}</p>
-        <table width="100%"><tbody><tr>
-          <td><Search search={this.handleSearch} getUrl={this.getUrlID} /></td><td><Sorter /></td>
-          </tr></tbody></table> 
-        <table><tbody><tr>
-          <td><img src="empty_profile@2x.png" width="148" height="68" /></td><td><Create info={this.state} /></td>
-            </tr></tbody></table>
+        <table width="100%"><tbody>
+          <tr>
+            <td>
+              <Search search={this.handleSearch} getUrl={this.getUrlID} />
+            </td>
+            <td>
+              <Sorter />
+            </td>
+          </tr>
+        </tbody></table> 
+        <table><tbody>
+          <tr>
+            <td>
+              <img src="empty_profile@2x.png" width="148" height="68" />
+            </td>
+            <td>
+              <Create info={this.state} getUrl={this.getUrlID.bind(this)} update={this.getReviews} />
+            </td>
+          </tr>
         {this.state.reviews.map((review) => {
-          return (<div key={review.id}>
-            <table><tbody>
-              <tr>
-              <td>
+          return (
+            <tr>
+              <td colSpan="2">
+                <div key={review.id}>
+                  <Review review={review} restaurant={this.state.restaurant}
+                    getUrl={this.getUrlID.bind(this)}/>
+                  <hr />
+                </div>
               </td>
-              <td>
-            <Review review={review} restaurant={this.state.restaurant} getPhotos={this.getPhotos.bind(this)} 
-              getUrl={this.getUrlID.bind(this)}/>
-              </td>
-              </tr>
-              </tbody></table>
-              <hr />
-            </div>)
+            </tr>
+          )
         })}
-
-        
+        </tbody></table>
       </div>
     )
   }
