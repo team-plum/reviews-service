@@ -39,10 +39,19 @@ app.get('/photos/:id', (req, res) => {
   })
 })
 
+
+// SEARCH REVIEWS
 app.get('/search/:id', (req, res) => {
   let id = req.body.id || 1
-  // let term = req.body.term || 'dolorum'
-  db.search(id, req.body.term, (err, data) => {
+  console.log('SEARCH REQ.BODY: ', req.body)
+  let term = req.body.term
+
+  if(!term) {
+    res.send('Please include a search term.')
+    return;
+  }
+
+  db.search(id, term, (err, data) => {
     if(err) {
       console.log(`Error searching: ${err}`)
       res.sendStatus(500)
@@ -52,10 +61,13 @@ app.get('/search/:id', (req, res) => {
   })
 })
 
-app.delete('/delete/:id', (req, res) => {
-  let id = req.body.id || req.params.id
 
-  db.delete(id, (err, data) => {
+// DELETE REVIEW -- testing purposes
+app.delete('/delete/:id', (req, res) => {
+  let restaurant_id = req.body.restaurant_id || req.params.id
+  let rowid = req.body.rowid
+
+  db.delete(restaurant_id, rowid, (err, data) => {
     if(err) {
       console.log(`Error deleting: ${err}`)
       res.sendStatus(500)

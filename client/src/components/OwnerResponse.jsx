@@ -9,7 +9,7 @@ const OwnerResponse = (props) => {
         <div key={restaurant.id} className="island">
         <table><tbody><tr>
         <td>{<img className="owner" src={restaurant.ownerAvatar}/>}</td>
-        <td><h5>Comment from {restaurant.owner} of {restaurant.name}<br />Business Owner</h5></td>
+        <td><h6>Comment from {restaurant.owner} of {restaurant.name}<br /></h6><p>Business Owner</p></td>
         </tr>
         <tr>
           <td colSpan="2"><p className="review">{props.review.ownerResponse}</p></td>

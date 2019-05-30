@@ -13,9 +13,9 @@ const User = (props) => {
           <td>
             <p className="img user">{props.user.user}</p><br />
             <p className="user_location">{props.user.location}</p>
-            <p className="user_stats"><IoMdPeople /> {props.user.friends} friends</p>
-            <p className="user_stats"><MdStars /> {props.user.reviews} reviews</p>
-            <p className="user_stats"><IoIosCamera /> {props.user.id} photos</p>
+            <p className="user_stats"><IoMdPeople className="usericon" /> {props.user.friends} friends</p>
+            <p className="user_stats"><MdStars  className="usericon" /> {props.user.reviews} reviews</p>
+            <p className="user_stats"><IoIosCamera  className="usericon" /> {props.user.id} photos</p>
           </td>
         </tr>
       </tbody></table>

@@ -8,20 +8,29 @@ p.subtitle {
   color: #333333
 }
 
-button.search {
-  position: relative;
-  left: -1px;
-  border-radius: 0 3px 3px 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  width: 37px;
-  height: 30px;
-  background-color: #D32323
+.sorter {
+  margin-left: 10px;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #D32323 !important;
+  border-color: #D32323 !important;
 }
 
 .photo_modal {
-  width: 100%;    /* Occupy the 90% of the screen width */
-  max-width: 100%;
+  width: 100000px !important;
+  max-width: 90%;
+}
+
+p.carousel_caption {
+  background-color: #FFFFFF;
+  color: #000000;
+  opacity: .75
+}
+h3.carousel_caption {
+  background-color: #FFFFFF;
+  color: #000000;
+  opacity: .75
 }
 
 button.vote {
@@ -45,8 +54,17 @@ button.vote {
 }
 
 .search {
-  color: white;
-  width: 20px
+  width: 50%
+}
+.wrapper {
+  list-style: none;
+  width: 100%;
+  height: 90px;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 img.review {
@@ -61,6 +79,15 @@ img.review {
 }
 .hovered {
   transition: visibility .5s, opacity .5s;
+  visibility: visible;
+  opacity: 1
+}
+
+.invisible {
+  visibility: hidden;
+  opacity: 0
+}
+.visible {
   visibility: visible;
   opacity: 1
 }
@@ -118,20 +145,39 @@ body {
   text-align: center;
 }
 
+.usericon {
+  color: #e06529;
+  font-size: 20px
+}
 
-/* .stars:hover {
-  width: 162px;
-  background-position: 0px -150px
+.starbarlarge_empty {
+  color: #cccccc;
+  font-size: 30px;
+}
+.starbarlarge_full {
+  color: #ff9242;
+  font-size: 30px;
 }
 
 .zerostars {
-  width: 164px;
-  height: 25px;
-  display: inline-block;
-  background-image: url('./stars.png');
-  background-position: 0px 0px;
-  background-repeat: no-repeat;
-} */
+  color: #cccccc
+}
+.onestar {
+  color: #f2bd79
+}
+.twostars {
+  color: #fec011
+}
+.threestars {
+  color: #ff9242
+}
+.fourstars {
+  color: #f15c4f
+}
+.fivestars {
+  color: #d32323
+}
+
 
 .island {
   width: 629px;
@@ -141,7 +187,8 @@ body {
   border-radius: 4px;
   display: inline-block;
   vertical-align: middle;
-  margin: 0px 0px 12px
+  padding: auto;
+  text-align: center;
 }
 
 a {
@@ -167,6 +214,15 @@ img.owner {
   width: 30px;
   height: 30px;
   border-radius: 4px;
+}
+
+img.review {
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+img.carousel {
+  width: 100%;
 }
 
 h5 {

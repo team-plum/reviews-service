@@ -85,10 +85,11 @@ module.exports = {
       callback(err)
     })
   },
-  delete: (id, callback) => {
+  delete: (id, rowid, callback) => {
     Review.destroy({
       where: {
-        rowid: id
+        restaurant_id: id,
+        rowid: rowid
       }
     })
     .then(data => {
@@ -164,31 +165,6 @@ module.exports = {
       callback(null, data)
     })
     .catch(err => {
-      callback(err)
-    })
-  },
-  search: (id, term, callback) => {
-    let results = []
-
-    Review.findAll({
-      where: {
-        restaurant_id: id
-      }
-    })
-    .then(data => {
-      console.log(`Searching reviews...`)
-      for (let i = 0; i < data.length; i++) {
-        let words = data[i].text.split(' ')
-        for(let x = 0; x < words.length; x++) {
-          if(words[x] === term) {
-            results.push(data[i])
-          }
-        }
-      }
-      callback(null, results)
-    })
-    .catch(err => {
-      console.log(`Error searching reviews: ${err}`)
       callback(err)
     })
   }

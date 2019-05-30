@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios';
+import { sortBy } from 'lodash'
 
 import Review from './components/Review.jsx'
 import Search from './components/Search.jsx'
-import Sorter from './components/Sorter.jsx'
 import Create from './components/Create.jsx'
 
 class Reviews extends React.Component {
@@ -18,13 +18,13 @@ class Reviews extends React.Component {
     this.getRestaurant = this.getRestaurant.bind(this)
     this.getUrlID = this.getUrlID.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.sort = this.sort.bind(this)
   }
 
   componentDidMount() {
     let id = this.getUrlID()
     this.getReviews(id)
     this.getRestaurant(id)
-    // this.getPhotos(id)
   }
 
   getUrlID() {
@@ -35,22 +35,29 @@ class Reviews extends React.Component {
   }
 
   handleSearch(id, term) {
-    axios.get(`/search/${id}`, {
-      id: id,
-      term: term
-    })
+    if(!id) {
+      id = 1
+    }
+
+    axios.get(`/reviews/${id}`)
       .then(results => {
-        if(results.data) {
-          console.log(`${term} searched.`)
-          this.setState({reviews: results.data})
-        } else {
-          console.log(`No reviews containing ${term}.`)
+        let matches = []
+        console.log(`Searching reviews...`)
+        for (let i = 0; i < results.data.length; i++) {
+          let words = results.data[i].text.split(' ')
+          for(let x = 0; x < words.length; x++) {
+            if(words[x] === term) {
+              matches.push(results.data[i])
+            }
+          }
         }
-      })
-      .catch(err => {
-        console.log(`Error occurred during search: ${err}`)
-      })
+        this.setState({reviews: matches})
+        })
+        .catch(err => {
+          console.log(`Error searching reviews: ${err}`)
+        })
   }
+
 
   getRestaurant(id) {
     if(!id) {
@@ -80,22 +87,52 @@ class Reviews extends React.Component {
       })
   }
 
+  sort(id, type) {
+    let reviews = this.state.reviews.slice()
+
+    if (type === 'Newest First') {
+      let sorted = _.sortBy(reviews, (review) => {
+        return review.date
+      })
+      let reversed = _.reverse(sorted)
+      this.setState({reviews: reversed})
+
+    } else if (type === 'Oldest First') {
+      let sorted = _.sortBy(reviews, (review) => {
+        return review.date
+      })
+      this.setState({reviews: sorted})
+    } else if (type === 'Highest Rated') {
+      let sorted = _.sortBy(reviews, (review) => {
+        return review.rating
+      })
+      let reversed = _.reverse(sorted)
+      this.setState({reviews: reversed})
+
+    } else if (type === 'Lowest Rated') {
+      let sorted = _.sortBy(reviews, (review) => {
+        return review.rating
+      })
+      this.setState({reviews: sorted})
+
+    } else {
+      this.getReviews(id)
+    }
+  }
+
   render() {
     return (
       <div>
         <h2>Recommended Reviews</h2>
         <p className="subtitle"> for {this.state.restaurant.map((restaurant) => {
           return (restaurant.name)})}</p>
-        <table width="100%"><tbody>
-          <tr>
-            <td>
-              <Search search={this.handleSearch} getUrl={this.getUrlID} />
-            </td>
-            <td>
-              <Sorter />
-            </td>
-          </tr>
-        </tbody></table> 
+            
+            <div className="wrapper">
+              <div className="search">
+              <Search search={this.handleSearch} getUrl={this.getUrlID} update={this.getReviews} sort={this.sort} />
+            </div>
+            </div>
+
         <table><tbody>
           <tr>
             <td>
@@ -105,7 +142,7 @@ class Reviews extends React.Component {
               <Create info={this.state} getUrl={this.getUrlID.bind(this)} update={this.getReviews} />
             </td>
           </tr>
-        {this.state.reviews.map((review) => {
+        {this.state.reviews && this.state.reviews.map((review) => {
           return (
             <tr>
               <td colSpan="2">

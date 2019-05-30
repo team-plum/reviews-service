@@ -1,4 +1,6 @@
 import React from 'react'
+import Sorter from './Sorter.jsx'
+import { InputGroup, FormControl, Button } from 'react-bootstrap'
 import { IoMdSearch } from 'react-icons/io'
 
 class Search extends React.Component {
@@ -14,24 +16,41 @@ class Search extends React.Component {
   }
   
   handleSubmit(e) {
+    e.preventDefault()
     if(this.state.input) {
-      e.preventDefault()
       let id = this.props.getUrl()
       let term = this.state.input
       this.props.search(id, term)
+      this.setState({input: ''})
     } else {
-      console.log('No search term provided.')
+      let id = this.props.getUrl()
+      this.props.update(id)
     }
   }
 
   render() {
-    return(<div>
-      <input type="text" onChange={this.handleChange.bind(this)} 
-      placeholder="Search within the reviews" />&nbsp;
-      <button onClick={this.handleSubmit.bind(this)} 
-      className="search"><IoMdSearch className="search" /></button>
-    </div>)
+    return(
+      <div>
+        <InputGroup className="mb-3">
+          <FormControl value={this.state.input}
+            onChange={this.handleChange.bind(this)} onSubmit={this.handleSubmit}
+            placeholder="Search within the reviews"
+            aria-label="Search within the reviews"
+            aria-describedby="basic-addon2" />
+          <InputGroup.Append>
+            <Button variant="primary" onClick={this.handleSubmit.bind(this)}><IoMdSearch /></Button>
+          </InputGroup.Append>
+          <Sorter getUrl={this.props.getUrl} sort={this.props.sort} />
+        </InputGroup>
+      </div>
+    )
   }
 }
 
 export default Search
+{/* <div className="bar">
+  <input value={this.state.input} type="text" onChange={this.handleChange.bind(this)} onSubmit={this.handleSubmit} 
+  placeholder="Search within the reviews" />&nbsp;
+  <button onClick={this.handleSubmit.bind(this)} 
+  className="search"><IoMdSearch className="search" /></button>
+</div> */}

@@ -58,29 +58,19 @@ class Photos extends React.Component {
             <img key={photo.id} onClick={this.handleOpen} className="review" src={photo.url} />
           )
       })}
-      <Modal show={this.state.show} onHide={this.handleClose} className="photo_modal">
+      <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Body>
               <Carousel>
                 {this.state.photos.map((photo) => {
                   return (
                     <Carousel.Item key={photo.id}>
-                    <table>
-                    <tbody>
-                      <tr>
-                        <td>
-                      <img width="100%"
+                      <img className="carousel"
                         src={photo.url}
                         alt={photo.caption} />
-                        </td>
-                        <td>
-                        <img className="user" src={this.props.review.avatar} /> {this.props.review.user}
-                    <p className="user_stats"><IoMdPeople /> {this.props.review.friends} friends</p>
-                    <p className="user_stats"><MdStars /> {this.props.review.reviews} reviews</p>
-                    <p>{photo.caption}</p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                      <Carousel.Caption>
+                        <h3 className="carousel_caption">{photo.caption}</h3>
+                        <p class="carousel_caption">{this.props.review.user}</p>
+                      </Carousel.Caption>
                     </Carousel.Item>
                   )
                 })}

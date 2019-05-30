@@ -1,7 +1,6 @@
 import React from 'react'
 import { FaShareSquare, FaMedal } from 'react-icons/fa'
 import { MdCode, MdChatBubble, MdPersonAdd } from 'react-icons/md'
-import Embed from './Embed.jsx'
 
 const HoverBox = (props) => {
   return (<div>
@@ -22,7 +21,7 @@ const HoverBox = (props) => {
               <MdCode className="hoverbox" />
             </td>
             <td>
-              <Embed review={props.review} />
+            <a href="#" className="a hoverbox"> Embed review</a>
               <hr />
             </td>
           </tr>

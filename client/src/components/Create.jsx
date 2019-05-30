@@ -1,7 +1,8 @@
 import React from 'react'
-import RatingBar from './RatingBar.jsx'
 import axios from 'axios'
+import Rating from 'react-rating'
 import { Modal, Button } from 'react-bootstrap'
+import { FaStar } from 'react-icons/fa'
 
 class Create extends React.Component {
   constructor(props) {
@@ -31,12 +32,8 @@ class Create extends React.Component {
   handleTextChange(e) {
     this.setState({text: e.target.value})
   }
-  handleRatingChange(e) {
-    this.setState({rating: e.target.value})
-  }
-
   handleRating(e) {
-    this.setState({rating: e.target.value})
+    this.setState({rating: e})
   }
 
   submitReview(id) {
@@ -48,9 +45,8 @@ class Create extends React.Component {
       text: this.state.text
     })
     .then(data => {
-      console.log(data)
       this.handleClose()
-      this.update()
+      this.props.update(id)
     })
     .catch(err => {
       console.log(`Error occurring posting review: ${err}`)
@@ -61,7 +57,8 @@ class Create extends React.Component {
   render() {
     return (
             <div className="island">
-          <RatingBar rate={this.handleRating} rating={this.state.rating} />
+        <Rating onChange={this.handleRating} initialRating={this.state.rating} emptySymbol={<FaStar className="starbarlarge_empty" />}
+          fullSymbol={<FaStar className="starbarlarge_full" />} />
           <hr />
           <a href="#" onClick={this.handleOpen}>Start your review of <b>{this.props.info.restaurant.map(restaurant => {
             return (restaurant.name)})}.</b></a>
@@ -74,7 +71,14 @@ class Create extends React.Component {
             <Modal.Body>
               <table><tbody><tr><td><input type="text" placeholder="Your name" onChange={this.handleNameChange.bind(this)}></input></td>
               <td>
-                <RatingBar rate={this.handleRating} rating={this.state.rating} />
+                <label>Rating:&nbsp;</label>
+                <select value={this.state.rating} onChange={this.handleRating}>
+                  <option value="1">★</option>
+                  <option value="2">★★</option>
+                  <option value="3">★★★</option>
+                  <option value="4">★★★★</option>
+                  <option value="5">★★★★★</option>
+                </select>
               </td>
               </tr></tbody></table>
               <br />
