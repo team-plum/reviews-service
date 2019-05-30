@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios';
-import { sortBy } from 'lodash'
+import _ from 'lodash'
 
 import Review from './components/Review.jsx'
 import Search from './components/Search.jsx'
@@ -39,7 +39,7 @@ class Reviews extends React.Component {
       id = 1
     }
 
-    axios.get(`/reviews/${id}`)
+    axios.get(`http://54.173.123.243:3007/reviews/${id}`)
       .then(results => {
         let matches = []
         console.log(`Searching reviews...`)
@@ -63,7 +63,7 @@ class Reviews extends React.Component {
     if(!id) {
       id = 1
     }
-    axios.get(`/restaurant/${id}`)
+    axios.get(`http://54.173.123.243:3007/restaurant/${id}`)
       .then(results => {
         console.log('Restaurant retrieved.')
         this.setState({restaurant: results.data})
@@ -77,7 +77,7 @@ class Reviews extends React.Component {
     if(!id) {
       id = 1
     }
-    axios.get(`/reviews/${id}`)
+    axios.get(`http://54.173.123.243:3007/reviews/${id}`)
       .then(results => {
         console.log('Reviews retrieved.')
         this.setState({ reviews: results.data })

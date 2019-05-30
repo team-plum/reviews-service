@@ -31,7 +31,7 @@ class Photos extends React.Component {
   }
 
   getPhotos(id) {
-    axios.get(`/photos/${id}`)
+    axios.get(`http://54.173.123.243:3007/photos/${id}`)
       .then(results => {
         this.setState({photos: results.data})
       })
