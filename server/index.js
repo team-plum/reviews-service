@@ -12,12 +12,12 @@ app.use(cors())
 app.use(parser.json());
 app.use(morgan('dev'));
 
-app.use('/', express.static(path.join(__dirname, '../client/dist')))
-app.use('/:id', express.static(path.join(__dirname, '../client/dist')))
+app.use('http://54.173.123.243:3007/', express.static(path.join(__dirname, '../client/dist')))
+app.use('http://54.173.123.243:3007/:id', express.static(path.join(__dirname, '../client/dist')))
 
-app.use('/reviews', router)
+app.use('http://54.173.123.243:3007/reviews', router)
 
-app.get('/restaurant/:id', (req, res) => {
+app.get('http://54.173.123.243:3007/restaurant/:id', (req, res) => {
   let id = req.params.id || 1
   db.getRestaurant(id, (err, data) => {
     if(err) {
@@ -29,7 +29,7 @@ app.get('/restaurant/:id', (req, res) => {
   })
 })
 
-app.get('/photos/:id', (req, res) => {
+app.get('http://54.173.123.243:3007/photos/:id', (req, res) => {
   let id = req.params.id || 1
   db.getPhotos(id, (err, data) => {
     if(err) {
@@ -43,7 +43,7 @@ app.get('/photos/:id', (req, res) => {
 
 
 // SEARCH REVIEWS
-app.get('/search/:id', (req, res) => {
+app.get('http://54.173.123.243:3007/search/:id', (req, res) => {
   let id = req.body.id || 1
   console.log('SEARCH REQ.BODY: ', req.body)
   let term = req.body.term
@@ -65,7 +65,7 @@ app.get('/search/:id', (req, res) => {
 
 
 // DELETE REVIEW -- testing purposes
-app.delete('/delete/:id', (req, res) => {
+app.delete('http://54.173.123.243:3007/delete/:id', (req, res) => {
   let restaurant_id = req.body.restaurant_id || req.params.id
   let rowid = req.body.rowid
 
