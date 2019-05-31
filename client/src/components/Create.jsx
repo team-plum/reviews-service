@@ -38,7 +38,7 @@ class Create extends React.Component {
 
   submitReview(id) {
     id = this.props.getUrl()
-    axios.post(`http://172.31.94.52:3007:3007/reviews/${id}`, {
+    axios.post(`http://34.202.25.245:3007/reviews/${id}`, {
       restaurant_id: this.props.getUrl(),
       user: this.state.name,
       rating: this.state.rating,
