@@ -4,9 +4,11 @@ const morgan = require('morgan')
 const parser = require('body-parser')
 const router = require('./routes.js')
 const db = require('../database')
+const cors = require('cors')
 
 const app = express();
 
+app.use(cors())
 app.use(parser.json());
 app.use(morgan('dev'));
 
