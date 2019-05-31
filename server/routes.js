@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const controller = require('./controller.js');
 
-router.route('http://54.173.123.243:3007/all')
+router.route('/all')
   .get(controller.getAllReviews)
 
-router.route('http://54.173.123.243:3007/:id')
+router.route('/:id')
   .get(controller.getRestaurantReviews)
   .post(controller.createReview)
 
-router.route('http://54.173.123.243:3007/single/:id')
+router.route('/single/:id')
   .get(controller.getOneReview)
   .delete(controller.deleteReview)
 
