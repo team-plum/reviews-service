@@ -161,4 +161,4 @@ class Reviews extends React.Component {
   }
 }
 
-ReactDOM.render(<Reviews />, document.getElementById('reviews'))
+ReactDOM.render(<Reviews />, document.getElementById('reviews'), reviews)

@@ -65,7 +65,7 @@ app.get('http://54.173.123.243:3007/search/:id', (req, res) => {
 
 
 // DELETE REVIEW -- testing purposes
-app.delete('http://54.173.123.243:3007/delete/:id', (req, res) => {
+app.delete('http://54.173.123.243/delete/:id', (req, res) => {
   let restaurant_id = req.body.restaurant_id || req.params.id
   let rowid = req.body.rowid
 
