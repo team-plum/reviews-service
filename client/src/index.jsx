@@ -39,7 +39,7 @@ class Reviews extends React.Component {
       id = 1
     }
 
-    axios.get(`http://54.173.123.243:3007/reviews/${id}`)
+    axios.get(`http://18.207.85.123:3007/reviews/${id}`)
       .then(results => {
         let matches = []
         console.log(`Searching reviews...`)
@@ -63,7 +63,7 @@ class Reviews extends React.Component {
     if(!id) {
       id = 1
     }
-    axios.get(`http://54.173.123.243:3007/restaurant/${id}`)
+    axios.get(`http://18.207.85.123:3007/restaurant/${id}`)
       .then(results => {
         console.log('Restaurant retrieved.')
         this.setState({restaurant: results.data})
@@ -77,7 +77,7 @@ class Reviews extends React.Component {
     if(!id) {
       id = 1
     }
-    axios.get(`http://54.173.123.243:3007/reviews/${id}`)
+    axios.get(`http://18.207.85.123:3007/reviews/${id}`)
       .then(results => {
         console.log('Reviews retrieved.')
         this.setState({ reviews: results.data })
@@ -161,4 +161,4 @@ class Reviews extends React.Component {
   }
 }
 
-ReactDOM.render(<Reviews />, document.getElementById('reviews'), reviews)
+ReactDOM.render(<Reviews />, document.getElementById('reviews'))
