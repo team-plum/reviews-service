@@ -16,6 +16,7 @@ class Review extends React.Component {
     this.offHover = this.offHover.bind(this)
   }
 
+  // methods for user interaction block visibility
   onHover() {
     this.setState({hovered: true})
   }
@@ -28,7 +29,7 @@ class Review extends React.Component {
     <div onMouseEnter={this.onHover} onMouseLeave={this.offHover}>
       <table key={this.props.review.id}>
         <tbody>
-      <tr>
+      <tr key={this.props.review.id}>
       <td>
         <User user={this.props.review} />
       </td>
@@ -40,7 +41,7 @@ class Review extends React.Component {
         <VotingBlock review={this.props.review} />
         </td>
       </tr>
-      <tr>
+      <tr key={this.props.review.rowid}>
         <td><HoverBox user={this.props.review} review={this.props.review} hovered={this.state.hovered} /></td>
         </tr>
         </tbody>

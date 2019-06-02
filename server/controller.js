@@ -1,6 +1,7 @@
 const db = require('../database/index.js')
 
 module.exports = {
+  // creates review in database
   createReview: (req, res) => {
     console.log(req.params)
     let options = {
@@ -20,6 +21,7 @@ module.exports = {
       }
     })
   },
+  // get a single review
   getOneReview: (req, res) => {
     let id = req.params.id
     db.getOne(id, (err, data) => {
@@ -32,7 +34,7 @@ module.exports = {
       }
     })
   },
-  // this is for testing purposes!!
+  // gets all reviews for a given restaurant
   getRestaurantReviews: (req, res) => {
     let id = req.params.id
     db.get(id, (err, data) => {
@@ -45,6 +47,7 @@ module.exports = {
       }
     })
   },
+  // gets EVERY review in the database. only for testing!!
   getAllReviews: (req, res) => {
     db.getAll((err, data) => {
       if(err) {
@@ -56,6 +59,7 @@ module.exports = {
       }
     })
   },
+  // deletes a review. testing purposes, remove broken reviews
   deleteReview: (req, res) => {
     if(req.params.id === null) {
       let id = null

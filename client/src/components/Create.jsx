@@ -19,10 +19,12 @@ class Create extends React.Component {
   }
 
   handleOpen() {
+    // opens review creation modal
     this.setState({show: true})
   }
 
   handleClose() {
+    // closes review creation modal
     this.setState({show: false})
   }
 

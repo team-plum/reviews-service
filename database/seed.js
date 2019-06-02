@@ -67,7 +67,6 @@ const seedDatabase = (callback) => {
   for (let i = 1; i < 101; i++) {
     restaurants.push(
       db.Restaurant.create({
-      id: i,
       name: `${faker.commerce.productAdjective()} ${faker.commerce.color()}`,
       review_id: Math.floor((Math.random() * 100) + 1),
       owner: `${faker.name.firstName()} ${faker.name.lastName()}`,
@@ -90,7 +89,6 @@ const seedDatabase = (callback) => {
   for (let i = 1; i < 1001; i++) {
     reviews.push(
       db.Review.create({
-        id: i,
         restaurant_id: Math.floor((Math.random() * 100) + 1),
         user: `${faker.name.firstName()} ${faker.name.lastName()}`,
         avatar: `${faker.image.avatar()}`,
@@ -124,8 +122,7 @@ const seedDatabase = (callback) => {
   for (let i = 1; i < 3001; i++) {
     photos.push(
       db.Photo.create({
-      id: i,
-      review_id: Math.floor((Math.random() * 1000) + 1),
+      review_id: Math.floor((Math.random() * 1000) + 1), 
       url: `https://s3.amazonaws.com/reviews-service/${images[Math.floor(Math.random() * 50)]}`,
       caption: faker.lorem.sentence(2),
       helpful: Math.floor(Math.random() * 5),

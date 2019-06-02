@@ -3,7 +3,10 @@ import { FaShareSquare, FaMedal } from 'react-icons/fa'
 import { MdCode, MdChatBubble, MdPersonAdd } from 'react-icons/md'
 
 const HoverBox = (props) => {
-  return (<div>
+  // box is doubled to prevent elements moving when they disappear
+  // this way surrounding elements will respect the space it takes
+  // even when it's not visible
+  return (<div> 
     {props.hovered
       ?     <div className="hovered">
         <table width="100%"><tbody>

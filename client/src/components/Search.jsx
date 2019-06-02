@@ -48,9 +48,3 @@ class Search extends React.Component {
 }
 
 export default Search
-{/* <div className="bar">
-  <input value={this.state.input} type="text" onChange={this.handleChange.bind(this)} onSubmit={this.handleSubmit} 
-  placeholder="Search within the reviews" />&nbsp;
-  <button onClick={this.handleSubmit.bind(this)} 
-  className="search"><IoMdSearch className="search" /></button>
-</div> */}

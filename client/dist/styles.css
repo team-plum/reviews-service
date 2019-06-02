@@ -208,6 +208,7 @@ img.user {
   border-radius: 4px;
   width: 60px;
   height: 60px;
+  clear: both;
 }
 
 img.owner {

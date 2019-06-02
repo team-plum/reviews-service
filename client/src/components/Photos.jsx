@@ -23,6 +23,7 @@ class Photos extends React.Component {
     this.getPhotos(this.props.review.id)
   }
 
+  // this is non-functional, don't pay attention to it
   handleSelect(selectedIndex, e) {
     this.setState({
       index: selectedIndex,
@@ -30,6 +31,7 @@ class Photos extends React.Component {
     });
   }
 
+  // retrieve photos matching current restaurant ID
   getPhotos(id) {
     axios.get(`http://34.202.25.245:3007/photos/${id}`)
       .then(results => {
@@ -40,11 +42,10 @@ class Photos extends React.Component {
       })
   }
 
+  // modal open/close methods
   handleOpen() {
     this.setState({show: true})
   }
-
-  
   handleClose() {
     this.setState({show: false})
   }

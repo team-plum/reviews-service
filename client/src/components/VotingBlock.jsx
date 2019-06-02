@@ -7,7 +7,7 @@ class VotingBlock extends React.Component {
 
     }
   }
-
+  
   componentDidMount() {
     this.setState({
       funny: this.props.review.funny,

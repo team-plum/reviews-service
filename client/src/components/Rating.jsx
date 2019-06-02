@@ -6,6 +6,7 @@ class Rating extends React.Component {
     super(props)
   }
   
+  // this will render a small star rating, the colors will be different depending on the rating
   render() {
     let stars;
     let rating = this.props.review.rating
